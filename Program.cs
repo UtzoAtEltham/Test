@@ -550,6 +550,14 @@ namespace TextAdventuresCS
 
         private static void GetItem(List<Item> items, string itemToGet, int currentLocation, ref bool stopGame)
         {
+            int SUBCount = 0;
+            foreach (var thing in items)
+            {
+               if (thing.Location == Inventory)
+               {
+                   SUBCount = SUBCount + 1;
+               }
+        }
             string resultForCommand, subCommand = "", subCommandParameter = "";
             int indexOfItem, position;
             bool canGet = false;
@@ -574,9 +582,14 @@ namespace TextAdventuresCS
             {
                 Console.WriteLine("You can't find " + itemToGet + ".");
             }
-            else
+            else if (SUBCount == 5)
             {
-                canGet = true;
+                Console.WriteLine("Inventory is full!");
+            }                                  
+            else
+            {         
+               Console.WriteLine();
+               canGet = true;           
             }
             if (canGet)
             {
