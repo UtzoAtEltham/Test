@@ -773,6 +773,23 @@ namespace TextAdventuresCS
             Console.WriteLine();
         }
 
+        public static void DropItem(List<Item> items, string Remove)
+        {
+            Console.WriteLine();
+            foreach (var thing in items)
+            {
+                if (thing.Location == Inventory)
+                {
+                    if(thing.Name == Remove)
+                    {
+                        Console.WriteLine("Deleted " & thing.Name);
+                        Inventory = "";
+                    }
+                }
+            }
+            Console.WriteLine();
+        }
+
         private static void DisplayGettableItemsInLocation(List<Item> items, int currentLocation)
         {
             bool containsGettableItems = false;
@@ -824,23 +841,12 @@ namespace TextAdventuresCS
 
         private static void PlayGame(List<Character> characters, List<Item> items, List<Place> places)
         {
-            bool random = true;
             bool stopGame = false;
             string instruction, Command;
             bool moved = true;
             int resultOfOpenClose;
             while (!stopGame)
             {
-                  int count = 0;
-                if (items[count].Location == Inventory)
-                {
-                    random = true;
-                }
-                else
-                {
-                        random = false;
-                }                   
-                count++;
                 if (moved)
                 {
                     Console.WriteLine();
@@ -853,6 +859,8 @@ namespace TextAdventuresCS
                 Command = ExtractCommand(ref instruction);
                 switch (Command)
                 {
+                    case "drop":
+                        break;
                     case "get":
                         GetItem(items, instruction, characters[0].CurrentLocation, ref stopGame);
                         break;
@@ -890,10 +898,7 @@ namespace TextAdventuresCS
                         stopGame = true;
                         break;
                     default:
-                        if(false == true)
-                        {
-                        Console.WriteLine("Sorry, I don't what " + Command + " means.");
-                        }
+                        Console.WriteLine("Sorry, you don't know how to " + Command + ".");
                         break;
                 }
             }
