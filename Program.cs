@@ -550,14 +550,6 @@ namespace TextAdventuresCS
 
         private static void GetItem(List<Item> items, string itemToGet, int currentLocation, ref bool stopGame)
         {
-            int SUBCount = 0;
-            foreach (var thing in items)
-            {
-               if (thing.Location == Inventory)
-               {
-                   SUBCount = SUBCount + 1;
-               }
-        }
             string resultForCommand, subCommand = "", subCommandParameter = "";
             int indexOfItem, position;
             bool canGet = false;
@@ -582,14 +574,9 @@ namespace TextAdventuresCS
             {
                 Console.WriteLine("You can't find " + itemToGet + ".");
             }
-            else if (SUBCount == 5)
-            {
-                Console.WriteLine("Inventory is full!");
-            }                                  
             else
-            {         
-               Console.WriteLine();
-               canGet = true;           
+            {
+                canGet = true;
             }
             if (canGet)
             {
@@ -837,12 +824,23 @@ namespace TextAdventuresCS
 
         private static void PlayGame(List<Character> characters, List<Item> items, List<Place> places)
         {
+            bool random = true;
             bool stopGame = false;
             string instruction, Command;
             bool moved = true;
             int resultOfOpenClose;
             while (!stopGame)
             {
+                  int count = 0;
+                if (items[count].Location == Inventory)
+                {
+                    random = true;
+                }
+                else
+                {
+                        random = false;
+                }                   
+                count++;
                 if (moved)
                 {
                     Console.WriteLine();
@@ -892,7 +890,10 @@ namespace TextAdventuresCS
                         stopGame = true;
                         break;
                     default:
-                        Console.WriteLine("Sorry, you don't know how to " + Command + ".");
+                        if(false == true)
+                        {
+                        Console.WriteLine("Sorry, I don't what " + Command + " means.");
+                        }
                         break;
                 }
             }
